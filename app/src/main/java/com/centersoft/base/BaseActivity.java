@@ -1,8 +1,11 @@
 package com.centersoft.base;
 
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -13,8 +16,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.centersoft.chat.R;
@@ -52,13 +57,34 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
+    @Nullable
+    @BindView(R.id.toobar_title)
+    protected TextView toobarTitle;
+
+
     protected ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+
         super.onCreate(savedInstanceState);
         beforeInitResource();
         setContentView(initResource());
+
+
         init();
         initData();
         showView();
@@ -75,6 +101,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         if (actionBar == null) {
             setMyToolBar();
+            if (toobarTitle != null) {
+                actionBar.setTitle("");
+            }
         }
 
         if (actionBar != null) {
@@ -101,8 +130,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     // 设置toobar
     protected void setMyToolBar() {
     }
-
-    ;
 
     /**
      * 初始化布局 前
@@ -174,7 +201,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 返回前做处理
      */
-    protected boolean beforeBack() {
+    public boolean beforeBack() {
         return true;
     }
 
@@ -184,7 +211,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @Description TODO
      * @author LH
      */
-    protected void goBack() {
+    public void goBack() {
         if (!beforeBack()) {
             return;
         }
@@ -198,7 +225,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param pClass
      */
-    protected void openActivity(Class<?> pClass) {
+    public void openActivity(Class<?> pClass) {
         openActivity(pClass, null);
     }
 
@@ -208,7 +235,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param pClass
      * @param pBundle
      */
-    protected void openActivity(Class<?> pClass, Bundle pBundle) {
+    public void openActivity(Class<?> pClass, Bundle pBundle) {
         Intent intent = new Intent(this, pClass);
         if (pBundle != null) {
             intent.putExtras(pBundle);
@@ -274,6 +301,61 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return true;
             }
         }
+        return false;
+    }
+
+    protected boolean isActive = true; //是否活跃
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+
+        if (!isActive) {
+            //app 从后台唤醒，进入前台
+            isActive = true;
+            MyLog.i(Tag, "进入前台");
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        // TODO Auto-generated method stub
+        super.onStop();
+
+        if (!isAppOnForeground()) {
+            //app 进入后台
+            //全局变量 记录当前已经进入后台
+            isActive = false;
+            MyLog.i(Tag, "进入后台");
+        }
+    }
+
+    /**
+     * 程序是否在前台运行
+     *
+     * @return
+     */
+    public boolean isAppOnForeground() {
+        // Returns a list of application processes that are running on the
+        // device
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = getApplicationContext().getPackageName();
+
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null)
+            return false;
+
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            // The name of the process that this object is associated with.
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+
         return false;
     }
 

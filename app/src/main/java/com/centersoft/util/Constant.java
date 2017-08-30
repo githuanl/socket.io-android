@@ -10,14 +10,20 @@ public class Constant {
 
     public static final String Login_Url = "mobileLogin";
 
-    //登录名
     public static String Login_Name = "";
 
-    //token
-    public static String Auth_Token = "";
+    public static String auth_Token = "";
+
+    public static String chatToUser = "";//当前正在聊天的人
 
     //注册用户
-    public static final String Register_Url = "register";
+    public static final String Register_Url =    "register";
+
+    //发送图片 上传文件
+    public static final String Upload_Files = "uploadFiles";
+
+    public static final String allUsers = "allUsers";
+
 
 }
 

@@ -1,99 +1,39 @@
 package com.centersoft.entity;
 
-import java.io.Serializable;
+import com.centersoft.enums.Chat_type;
 
 /**
  * Created by liudong on 2017/7/6.
  * 消息 entity
  */
 
-public class VFMessage implements Serializable {
+public class VFMessage extends BaseEnty {
 
 
-    public static enum Chat_type {   //聊天的类型
-        chat,           //单聊
-        groupChat,      //群聊
-    }
-
-    public static enum Body_type {   //消息体 类型
-        txt,
-        img,
-    }
-
-
-    public static class Bodies {        //消息体
-
-        Body_type type;
-        String msg;             //消息内容
-
-        String imgUrl;             //imageUrl
-        String imageName;       //imageName
-
-        public Bodies(Body_type type, String msg) {
-            this.type = type;
-            this.msg = msg;
-        }
-
-        public Bodies(Body_type type, String imgUrl, String imageName) {
-            this.type = type;
-            this.imgUrl = imgUrl;
-            this.imageName = imageName;
-        }
-
-
-        public Body_type getType() {
-            return type;
-        }
-
-        public void setType(Body_type type) {
-            this.type = type;
-        }
-
-        public String getMsg() {
-            return msg;
-        }
-
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
-        public String getImgUrl() {
-            return imgUrl;
-        }
-
-        public void setImgUrl(String imgUrl) {
-            this.imgUrl = imgUrl;
-        }
-
-        public String getImageName() {
-            return imageName;
-        }
-
-        public void setImageName(String imageName) {
-            this.imageName = imageName;
-        }
-    }
-
-
-    String msg_id;      //消息ID
-    long timestamp;     //消息发送时间
-    String from;        //发送人
-    String to;          //要发送的人
-    Chat_type chat_type;//消息类型
-    String ext;         //扩展
-    Bodies bodies;      //内容
+    private int id;
+    private String msg_id;      //消息ID
+    private long timestamp;     //消息发送时间
+    private String from_user;        //发送人
+    private String to_user;          //要发送的人
+    private Chat_type chat_type;//消息类型
+    private String ext;         //扩展
+    private Bodies bodies;      //内容
+    private String group_id;
+    private String group_name;
+    private String status;      //状态
+    private int unreadnum;      // 未读数
 
     public VFMessage(String from, String to, Chat_type chat_type, String ext, Bodies bodies) {
-        this.from = from;
-        this.to = to;
+        this.from_user = from;
+        this.to_user = to;
         this.chat_type = chat_type;
         this.ext = ext;
         this.bodies = bodies;
     }
 
     public VFMessage(String from, String to, Chat_type chat_type, Bodies bodies) {
-        this.from = from;
-        this.to = to;
+        this.from_user = from;
+        this.to_user = to;
         this.chat_type = chat_type;
         this.bodies = bodies;
     }
@@ -102,36 +42,13 @@ public class VFMessage implements Serializable {
 
     }
 
+
     public String getMsg_id() {
         return msg_id;
     }
 
     public void setMsg_id(String msg_id) {
         this.msg_id = msg_id;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
     }
 
     public Chat_type getChat_type() {
@@ -150,11 +67,76 @@ public class VFMessage implements Serializable {
         this.ext = ext;
     }
 
+
     public Bodies getBodies() {
         return bodies;
     }
 
     public void setBodies(Bodies bodies) {
         this.bodies = bodies;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFrom_user() {
+        return from_user;
+    }
+
+    public void setFrom_user(String from_user) {
+        this.from_user = from_user;
+    }
+
+    public String getTo_user() {
+        return to_user;
+    }
+
+    public void setTo_user(String to_user) {
+        this.to_user = to_user;
+    }
+
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
+
+    public String getGroup_name() {
+        return group_name;
+    }
+
+    public void setGroup_name(String group_name) {
+        this.group_name = group_name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getUnreadnum() {
+        return unreadnum;
+    }
+
+    public void setUnreadnum(int unreadnum) {
+        this.unreadnum = unreadnum;
     }
 }
