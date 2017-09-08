@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
-
-
-    <com.centersoft.effect.VFSwipeRefreshLayout
-        android:id="@+id/refresh_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <com.centersoft.effect.VFListView
-            android:id="@+id/lv_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F2F4F6"
-            android:divider="@null" />
-    </com.centersoft.effect.VFSwipeRefreshLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.6dp"
-        android:background="@color/dividing_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,11 +66,12 @@
 
             <ImageButton
                 android:id="@+id/btn_send_pic"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/message_button_add"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/send_button"
@@ -101,31 +81,8 @@
                 android:background="@color/green_500"
                 android:text="发送"
                 android:textColor="@color/white"
-                android:textSize="12sp"
-                android:visibility="gone" />
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <include
-            android:id="@+id/include_emoji"
-            layout="@layout/acty_chat_emoji"
-            android:visibility="gone" />
-
-        <include
-            android:id="@+id/include_more"
-            layout="@layout/acty_chat_more"
-            android:visibility="gone" />
-
-        <include
-            android:id="@+id/include_voice_view"
-            layout="@layout/include_voice_view"
-            android:visibility="gone" />
-
-
-    </FrameLayout>
-</LinearLayout>
+</merge>
