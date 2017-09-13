@@ -307,50 +307,48 @@ public class ChatActy extends BaseActivity implements VoiceRecordCompleteCallbac
                 VFMessage vfMessage = listData.get(position);
                 switch (vfMessage.getBodies().getType()) {
                     case audio:
-                        final String path = vfMessage.getBodies().getFileRemotePath();
+                        final String path = vfMessage.getBodies().getFileRemotePath().replace("audios/", "");
                         final String sdPath = Environment.getExternalStorageDirectory().getPath() + "/luanliao/";
-                        if (!TextUtils.isEmpty(path)) {
 
-                            if (mMyMediaPlayer == null) {
-                                mMyMediaPlayer = new MediaPlayer();
-                            } else {
-                                mMyMediaPlayer.reset();
-                            }
-
-                            if (FileUtils.isFileExists(sdPath + path)) {        //文件已经下载
-                                try {
-                                    mMyMediaPlayer.setDataSource(sdPath + path);
-                                    mMyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                                    mMyMediaPlayer.prepare();
-                                    mMyMediaPlayer.start();
-                                } catch (IOException e) {
-                                }
-                            } else {                                            //去下载
-                                OkHttpUtils//
-                                        .get()//
-                                        .tag(context)
-                                        .url(Constant.BaseUrl + "/" + path)//
-                                        .build()//
-                                        .execute(new FileCallBack(sdPath, vfMessage.getBodies().getFileName()) {
-                                            @Override
-                                            public void onError(Call call, Exception e, int id) {
-
-                                            }
-
-                                            @Override
-                                            public void onResponse(File response, int id) {
-                                                try {
-                                                    mMyMediaPlayer.setDataSource(sdPath + path);
-                                                    mMyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                                                    mMyMediaPlayer.prepare();
-                                                    mMyMediaPlayer.start();
-                                                } catch (IOException e) {
-                                                }
-                                            }
-                                        });
-                            }
-
+                        if (mMyMediaPlayer == null) {
+                            mMyMediaPlayer = new MediaPlayer();
+                        } else {
+                            mMyMediaPlayer.reset();
                         }
+
+                        if (FileUtils.isFileExists(sdPath + path)) {        //文件已经下载
+                            try {
+                                mMyMediaPlayer.setDataSource(sdPath + path);
+                                mMyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                mMyMediaPlayer.prepare();
+                                mMyMediaPlayer.start();
+                            } catch (IOException e) {
+                            }
+                        } else {                                            //去下载
+                            OkHttpUtils//
+                                    .get()//
+                                    .tag(context)
+                                    .url(Constant.BaseUrl + "/" + vfMessage.getBodies().getFileRemotePath())//
+                                    .build()//
+                                    .execute(new FileCallBack(sdPath, path) {
+                                        @Override
+                                        public void onError(Call call, Exception e, int id) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(File response, int id) {
+                                            try {
+                                                mMyMediaPlayer.setDataSource(sdPath + path);
+                                                mMyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                                mMyMediaPlayer.prepare();
+                                                mMyMediaPlayer.start();
+                                            } catch (IOException e) {
+                                            }
+                                        }
+                                    });
+                        }
+
                         break;
                 }
             }
