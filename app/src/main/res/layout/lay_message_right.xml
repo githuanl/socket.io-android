@@ -14,7 +14,9 @@
         android:gravity="right"
         android:orientation="horizontal">
 
+
         <LinearLayout
+            android:id="@+id/ll_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -39,7 +41,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/message_list_item_right_selector"
+                    android:orientation="vertical"
                     android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/ll_locAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:singleLine="true"
+                            android:textColor="@color/NomalTextcolor"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_title_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:singleLine="true"
+                            android:textColor="@color/SubTextcolor"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
 
                     <ImageView
                         android:id="@+id/iv_image"
@@ -49,6 +78,7 @@
                         android:maxHeight="180dp"
                         android:maxWidth="180dp"
                         android:scaleType="fitCenter" />
+
                 </LinearLayout>
 
                 <TextView
@@ -98,6 +128,7 @@
 
 
         </LinearLayout>
+
 
         <ImageView
             android:layout_width="40dp"

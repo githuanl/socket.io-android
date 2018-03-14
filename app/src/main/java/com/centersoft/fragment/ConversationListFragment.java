@@ -57,6 +57,8 @@ public class ConversationListFragment extends BaseListFragment<VFMessage> {
                     viewHolder.setText(R.id.tv_msg, "[语音]");
                 } else if (msg.getBodies().getType() == Body_type.img) {
                     viewHolder.setText(R.id.tv_msg, "[图片]");
+                } else if (msg.getBodies().getType() == Body_type.loc) {
+                    viewHolder.setText(R.id.tv_msg, "[定位]");
                 }
 
                 TextView textView = viewHolder.getView(R.id.tv_message_num);

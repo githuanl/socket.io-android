@@ -11,13 +11,26 @@ public class Bodies extends BaseEnty {
 
     private Body_type type;
     private String msg;             //消息内容
-    private String imgUrl;             //imageUrl
+
+    private String imgUrl;          //imageUrl
     private String imageName;       //imageName
+
+    /*图片*/
+    private String thumbnailRemotePath; //缩略图
+    private String originImagePath; //原始路径
+
+    /*位置*/
+    private double latitude;
+    private double longitude;
+    private String locationName;
+    private String detailLocationName;
+
+
     private Byte[] fileData;
     private String fileName;
     private String fileRemotePath;
-    private long latitude;
-    private long longitude;
+
+    /*语音*/
     private int duration;
 
     public String getFileName() {
@@ -91,19 +104,19 @@ public class Bodies extends BaseEnty {
         this.imageName = imageName;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -113,5 +126,38 @@ public class Bodies extends BaseEnty {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+
+    public String getThumbnailRemotePath() {
+        return thumbnailRemotePath;
+    }
+
+    public void setThumbnailRemotePath(String thumbnailRemotePath) {
+        this.thumbnailRemotePath = thumbnailRemotePath;
+    }
+
+    public String getOriginImagePath() {
+        return originImagePath;
+    }
+
+    public void setOriginImagePath(String originImagePath) {
+        this.originImagePath = originImagePath;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public String getDetailLocationName() {
+        return detailLocationName;
+    }
+
+    public void setDetailLocationName(String detailLocationName) {
+        this.detailLocationName = detailLocationName;
     }
 }

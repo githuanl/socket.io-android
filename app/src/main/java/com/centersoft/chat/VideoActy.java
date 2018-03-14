@@ -133,30 +133,30 @@ public class VideoActy extends BaseActivity implements WebRtcClient.RtcListener 
     @Override
     public void onLocalStream(MediaStream localStream) {
         localStream.videoTracks.get(0).addRenderer(new VideoRenderer(localRender));
-        VideoRendererGui.update(localRender,
-                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
-                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
-                scalingType);
+//        VideoRendererGui.update(localRender,
+//                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
+//                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
+//                scalingType);
     }
 
     @Override
     public void onAddRemoteStream(MediaStream remoteStream, int endPoint) {
         remoteStream.videoTracks.get(0).addRenderer(new VideoRenderer(remoteRender));
-        VideoRendererGui.update(remoteRender,
-                REMOTE_X, REMOTE_Y,
-                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType);
-        VideoRendererGui.update(localRender,
-                LOCAL_X_CONNECTED, LOCAL_Y_CONNECTED,
-                LOCAL_WIDTH_CONNECTED, LOCAL_HEIGHT_CONNECTED,
-                scalingType);
+//        VideoRendererGui.update(remoteRender,
+//                REMOTE_X, REMOTE_Y,
+//                REMOTE_WIDTH, REMOTE_HEIGHT, scalingType);
+//        VideoRendererGui.update(localRender,
+//                LOCAL_X_CONNECTED, LOCAL_Y_CONNECTED,
+//                LOCAL_WIDTH_CONNECTED, LOCAL_HEIGHT_CONNECTED,
+//                scalingType);
     }
 
     @Override
     public void onRemoveRemoteStream(int endPoint) {
-        VideoRendererGui.update(localRender,
-                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
-                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
-                scalingType);
+//        VideoRendererGui.update(localRender,
+//                LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
+//                LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,
+//                scalingType);
     }
 
 }
